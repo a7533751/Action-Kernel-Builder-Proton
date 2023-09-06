@@ -10,11 +10,11 @@ on:
       GCC_RELEASE:
         description: 'Release tag'
         required: true
-        default: '9.x'
+        default: '9.1.0'
       GCC32_RELEASE:
         description: 'Release tag'
         required: true
-        default: '9.x'
+        default: '9.1.0'
       KERNEL_TREE:
         description: 'Kernel tree URL'
         required: true
