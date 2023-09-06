@@ -6,19 +6,19 @@ on:
       PROTON_RELEASE:
         description: 'Release tag'
         required: true
-        default: 'master'
+        default: '20200711'
       KERNEL_TREE:
         description: 'Kernel tree URL'
         required: true
-        default: 'https://github.com/cd-Crypton/android_kernel_realme_sm6225'
+        default: 'https://github.com/a7533751/proton_zf6'
       KERNEL_BRANCH:
         description: 'Kernel tree Branch'
         required: true
-        default: 'android13-staging'
+        default: 'v2'
       KERNEL_DEFCONFIG:
         description: 'Kernel defconfig'
         required: true
-        default: 'vendor/bengal-perf_defconfig'
+        default: 'vendor/kirin_defconfig'
       KERNEL_IMAGE_NAME:
         description: 'Kernel image name'
         required: true
