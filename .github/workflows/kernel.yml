@@ -7,6 +7,14 @@ on:
         description: 'Release tag'
         required: true
         default: '20200711'
+      GCC_RELEASE:
+        description: 'Release tag'
+        required: true
+        default: '9.x'
+      GCC32_RELEASE:
+        description: 'Release tag'
+        required: true
+        default: '9.x'
       KERNEL_TREE:
         description: 'Kernel tree URL'
         required: true
@@ -46,6 +54,18 @@ jobs:
         git config --global advice.detachedHead false
         git clone --depth=1 https://github.com/kdrag0n/proton-clang -b ${{ github.event.inputs.PROTON_RELEASE }} ./toolchains/proton-clang
 
+    - name: Setup GCC
+      run: |
+        mkdir -p android && cd android
+        git config --global advice.detachedHead false
+        git clone --depth=1 https://github.com/kdrag0n/aarch64-elf-gcc -b ${{ github.event.inputs.GCC_RELEASE }} ./toolchains/proton-gcc
+
+    - name: Setup GCC32
+      run: |
+        mkdir -p android && cd android
+        git config --global advice.detachedHead false
+        git clone --depth=1 https://github.com/kdrag0n/arm-eabi-gcc -b ${{ github.event.inputs.GCC32_RELEASE }} ./toolchains/proton-gcc32
+
     - name: Clone Kernel Tree
       run: |
         cd android
@@ -59,6 +79,8 @@ jobs:
     - name: Build Kernel
       run: |
         PATH="${GITHUB_WORKSPACE}/android/toolchains/proton-clang/bin:/bin:$PATH"
+        PATH="${GITHUB_WORKSPACE}/android/toolchains/proton-gcc/bin:/bin:$PATH"
+        PATH="${GITHUB_WORKSPACE}/android/toolchains/proton-gcc32/bin:/bin:$PATH"
         cd android/kernel
         ${{ env.MAKE }} ${{ github.event.inputs.KERNEL_DEFCONFIG }}
         ${{ env.MAKE }} -j"$(nproc --all)"
